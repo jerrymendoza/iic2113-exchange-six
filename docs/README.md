@@ -1,9 +1,6 @@
-# Debes editar este texto para la entrega 1.
+# Documentación Exchange-$ix :chart_with_upwards_trend: :moneybag:
 
-Explica aquí como organizarás tus docs, puedes:
-
-- Subir el archivo del informe (pdf) en esta carpeta y referenciarlo en este texto.
-- Hacer tus docs directamente en está carpeta, subir las imagenes en un folder dentro de docs y escribir el informe en este mismo README.md.
-- Usar alguna herramienta externa para escribir documentación (o el mismo wiki del repositorio).
-
-Finalmente, toma como referencia este post al momento de escribirlo [documentation handbook](https://github.com/jamiebuilds/documentation-handbook).
+En el archivo diagramas.pdf podrás encontrar:
+* Diagrama UML de arquitectura
+* Diagrama UML de clases
+* Algunos wireframes de las vistas de nuestra app
