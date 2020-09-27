@@ -96,3 +96,14 @@ This project uses [Active Admin](https://github.com/activeadmin/activeadmin) whi
 
 To populate your database with initial data you can add, inside the `/db/seeds.rb` file, the code to generate **only the necessary data** to run the application.
 If you need to generate data with **development purposes**, you can customize the `lib/fake_data_loader.rb` module and then to run the `rake load_fake_data` task from your terminal.
+
+### Docker compose
+## Build and run
+
+    $ docker-compose build
+    $ docker-compose build
+
+## Rails db:create and db:migrate
+
+    $ docker-compose run web rake db:create
+    $ docker-compose run web rake db:migrate
