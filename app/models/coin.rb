@@ -1,4 +1,5 @@
 class Coin < ApplicationRecord
+    has_many :transactions
 end
 
 # == Schema Information
