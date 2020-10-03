@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+    belongs_to :user
 end
 
 # == Schema Information
@@ -12,4 +13,13 @@ end
 #  is_partner :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :bigint(8)
+#
+# Indexes
+#
+#  index_accounts_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
