@@ -26,7 +26,7 @@ RUN bundle install --jobs 5
 
 COPY package.json .
 COPY yarn.lock .
-RUN yarn install
+RUN yarn upgrade
 
 # Start the main process.
 CMD ["rails", "server", "-b", "0.0.0.0"]
