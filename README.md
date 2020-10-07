@@ -3,6 +3,16 @@
 ## Basics
 
 Web app en Ruby 2.7 on Rails montado con Docker-Compose. Se puede visualizar en **inserte dominio aqui** donde está montada usando Heroku.
+### Docker
+    $ docker-compose build
+    $ docker-compose up
+
+Si clonas el repositorio por primera vez:
+ 
+    $ docker-compose run web ./bin/setup
+El script hará lo siguiente: 
+- Instalar dependencias
+- Preparar la base de datos
 
 ## Buenas Prácticas
 
