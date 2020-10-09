@@ -24,9 +24,8 @@ EXPOSE 3000
 RUN gem update bundler
 RUN bundle install --jobs 5
 
-COPY package.json .
-COPY yarn.lock .
+COPY . .
 RUN yarn upgrade
 
 # Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD rails server -b 0.0.0.0 -p  $PORT
