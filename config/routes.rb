@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         post "sign_in", to: "sessions#create"
       end
       resources :accounts
+      resources :transactions
     end
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
