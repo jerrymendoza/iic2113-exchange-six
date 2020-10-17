@@ -44,5 +44,5 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def accounts_params
-    params.require(:user).permit()
+    params.require(:user).permit(:email, :account_id)
   end
