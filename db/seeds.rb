@@ -9,6 +9,20 @@
 # Country.find_or_create_by(name: "Chile") # GOOD
 #
 
+# Coins
+Coin.create({tipo: "BTF",
+  cantidad: 1000,
+  precio_venta: 5000, 
+  precio_compra: 5000
+})
+
+Coin.create({tipo: "BTH",
+  cantidad: 2000,
+  precio_venta: 8000, 
+  precio_compra: 8000
+})
+puts "Seed de coins finalizado"
+
 # Accounts
 Account.destroy_all
 5.times do |number|
