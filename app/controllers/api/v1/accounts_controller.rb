@@ -44,6 +44,6 @@ class Api::V1::AccountsController < Api::V1::BaseController
   end
 
   def account_params
-    params.require(:account).permit(:saldo_clp, :btfs, :bths, :is_partner, :user_id)
+    params.require(:account).permit(:saldo_clp, :btfs, :bths, :is_partner)
   end
 end
