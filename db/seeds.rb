@@ -26,10 +26,19 @@ puts "Seed de coins finalizado"
 # Accounts
 Account.destroy_all
 5.times do |number|
-  puts number
-  date = Faker::Date.between(from: 4.days.ago, to: Date.today)
-  Account.create({id: number, saldo_clp: rand(1000), btfs: rand(100),
-    bths: rand(100), is_partner: [true, false].sample, created_at: date,
-    updated_at: date, user_id: rand(8)})
+  account = Account.create({
+    saldo_clp: rand(1000), 
+    btfs: rand(100),
+    bths: rand(100), 
+    is_partner: [true, false].sample
+  })
+  user = User.create({
+    email: Faker::Internet.email(domain: 'uc.cl'),
+    password: "password",
+    password_confirmation: "password",
+    account_id: account 
+  })
+
+  puts "Created #{user.email}"
 end
 puts "Seed de cuentas finalizado"
