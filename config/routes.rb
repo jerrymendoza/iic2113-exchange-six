@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       end
       resources :accounts
       resources :transactions
+      resources :users
     end
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
