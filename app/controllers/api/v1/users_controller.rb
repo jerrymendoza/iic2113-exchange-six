@@ -43,6 +43,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user = User.find(params[:id])
   end
 
-  def accounts_params
+  def user_params
     params.require(:user).permit(:email, :account_id)
   end
+end
