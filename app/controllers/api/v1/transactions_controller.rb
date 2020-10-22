@@ -17,7 +17,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
       @transaction = Transaction.new(transaction_params)
   
       if @transaction.save
-        OrderMailer.with(transaction: @transaction).new_transaction_email.deliver_later
+        TransactionMailer.with(transaction: @transaction).new_transaction_email.deliver_later
         render json: @transaction, status: :created
       else
         render json: @transaction.errors, status: :unprocessable_entity
