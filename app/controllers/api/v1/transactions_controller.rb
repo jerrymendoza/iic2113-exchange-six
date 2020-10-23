@@ -42,7 +42,9 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     account = Account.find(transaction_params[:account_id])
     valid_transaction = true
     if transaction_params[:tipo] == "COMPRA"
-      if coin.cantidad < transaction_params[:cantidad] || account.saldo_clp < coin.precio_compra * transaction_params[:cantidad]
+      if coin.cantidad < transaction_params[:cantidad]
+        valid_transaction = false
+      elsif account.saldo_clp < coin.precio_compra * transaction_params[:cantidad] && !account.is_partner
         valid_transaction = false
       end
     elsif transaction_params[:tipo] == "VENTA" && coin.tipo == "BTF"
