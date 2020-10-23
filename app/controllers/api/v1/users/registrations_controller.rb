@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
-  # skip_before_action :doorkeeper_authorize!
+  skip_before_action :doorkeeper_authorize!
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -12,6 +12,8 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    puts "sdfsdfsdfa"
+    puts sign_up_params
     build_resource(sign_up_params)
     resource.save
     if resource.persisted?
@@ -77,4 +79,10 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  private
+
+  def sign_up_params
+      params.require(:user).permit(:email, :password)
+  end
+  
 end

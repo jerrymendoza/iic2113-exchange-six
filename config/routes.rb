@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
 
-  use_doorkeeper
-
+  use_doorkeeper do
     # No need to register client application
-  #skip_controllers :applications, :authorized_applications
+    skip_controllers :applications, :authorized_applications
+  end
 
   scope path: '/api' do
     api_version(module: "Api::V1", path: { value: "v1" }, defaults: { format: 'json' }) do
@@ -14,7 +14,6 @@ Rails.application.routes.draw do
        
       resources :accounts
       resources :transactions
-      resources :users
       resources :coins
     end
   end
