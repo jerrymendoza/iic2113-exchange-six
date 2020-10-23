@@ -38,7 +38,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     @transaction.destroy
   end
 
-  def validate_transaction(transaction_params)en
+  def validate_transaction(transaction_params)
     coin = Coin.find(transaction_params[:coin_id])
     account = Account.find(transaction_params[:account_id])
     valid_transaction = true
