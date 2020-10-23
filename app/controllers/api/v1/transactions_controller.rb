@@ -3,8 +3,8 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   # GET /transactions
   def index
-      @transactions = Transaction.all
-      render json: @transactions
+    @transactions = Transaction.all
+    render json: @transactions
   end
 
   # GET /transactions/{transaction id}
