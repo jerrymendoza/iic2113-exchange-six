@@ -8,7 +8,7 @@
 # Country.create(name: "Chile") # BAD
 # Country.find_or_create_by(name: "Chile") # GOOD
 #
-
+require 'json'
 # Coins
 btf = Coin.create({tipo: "BTF",
   cantidad: 1000,
@@ -50,4 +50,11 @@ Account.destroy_all
   end
 
 end
-
+application = Doorkeeper::Application.create(
+  name: "Frontend",
+  scopes: "read write",
+  confidential: false,
+  redirect_uri: "urn:ietf:wg:oauth:2.0:oob"
+  ) 
+  
+  puts JSON.pretty_generate(application.attributes.as_json)
