@@ -14,9 +14,8 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   # POST /transactions
   def create
-    @transaction = Transaction.new(transaction_params)
     effective_transaction = validate_transaction(transaction_params)
-    if @transaction.save && effective_transaction
+    if effective_transaction
       TransactionMailer.with(transaction: @transaction).new_transaction_email.deliver_later
       render json: @transaction, status: :created
     else
@@ -84,15 +83,20 @@ class Api::V1::TransactionsController < Api::V1::BaseController
       coin.cantidad -= amount
       coin.save
     end
+    @transaction = Transaction.create(transaction_params)
+    @transaction.valor_clp = price
+    @transaction.save
     update_price(coin, transaction_type)
     return true
   end
 
   def update_price(coin, transaction_type)
-    if transaction_type = "VENTA"
+    if transaction_type == "VENTA"
       coin.precio_venta *= 1.03
+      coin.save
     else
       coin.precio_compra *= 1.03
+      coin.save
     end
   end
 
