@@ -38,12 +38,12 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     @transaction.destroy
   end
 
-  def validate_transaction(transaction_params)
-    coin = Coin.where(transaction_params[:coin_id])
+  def validate_transaction(transaction_params)en
+    coin = Coin.find(transaction_params[:coin_id])
     account = Account.find(transaction_params[:account_id])
     valid_transaction = true
     if transaction_params[:tipo] == "COMPRA"
-      if coin.cantidad < transaction_params[:cantidad] || account.saldo_clp < coin.precio_compra * Coin.cantidad
+      if coin.cantidad < transaction_params[:cantidad] || account.saldo_clp < coin.precio_compra * coin.cantidad
         valid_transaction = false
       end
     elsif transaction_params[:tipo] == "VENTA" && coin.tipo == "BTF"
