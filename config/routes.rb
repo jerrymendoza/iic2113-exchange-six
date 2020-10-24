@@ -5,8 +5,9 @@ Rails.application.routes.draw do
         post "sign_up", to: "registrations#create"
         post "sign_in", to: "sessions#create"
       end
-      resources :accounts
-      resources :transactions
+      resources :accounts do
+        resources :transactions
+      end
       resources :users
       resources :coins
     end
