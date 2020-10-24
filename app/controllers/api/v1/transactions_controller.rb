@@ -1,10 +1,10 @@
 class Api::V1::TransactionsController < Api::V1::BaseController
   before_action :set_transaction, only: [:show, :update, :destroy]
 
-  # GET /transactions
+    # GET /transactions
   def index
-    @transactions = Transaction.all
-    render json: @transactions
+      @transactions = Transaction.where("account_id = ?", params[:account_id])
+      render json: @transactions
   end
 
   # GET /transactions/{transaction id}

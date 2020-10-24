@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   use_doorkeeper do
     # No need to register client application
     skip_controllers :applications, :authorized_applications
@@ -8,12 +7,14 @@ Rails.application.routes.draw do
 
   scope path: '/api' do
     api_version(module: "Api::V1", path: { value: "v1" }, defaults: { format: 'json' }) do
-      devise_for :users, controllers: {
-           registrations: 'api/v1/users/registrations',
-       }, skip: [:sessions, :password]
-       
-      resources :accounts
-      resources :transactions
+      devise_scope :user do
+        post "sign_up", to: "registrations#create"
+        post "sign_in", to: "sessions#create"
+      end
+      resources :accounts do
+        resources :transactions
+      end
+      resources :users
       resources :coins
       resources :users
     end
