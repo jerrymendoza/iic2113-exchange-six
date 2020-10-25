@@ -3,7 +3,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   # GET /transactions
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.where("account_id = ?", params[:account_id])
     render json: @transactions
   end
 
