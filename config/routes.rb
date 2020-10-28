@@ -11,16 +11,10 @@ Rails.application.routes.draw do
       devise_for :users, controllers: {
            registrations: 'api/v1/users/registrations',
        }, skip: [:sessions, :password]
-<<<<<<< HEAD
 
-      resources :accounts
-      resources :transactions
-=======
-       
       resources :accounts do
         resources :transactions
       end
->>>>>>> 9768d0fed02f00c534391c747047b0e25c8cd66e
       resources :coins
       resources :users
       resources :transactions
