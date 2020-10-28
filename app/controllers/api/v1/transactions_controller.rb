@@ -3,8 +3,19 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   # GET /transactions
   def index
-    @transactions = Transaction.where("account_id = ?", params[:account_id])
+    # @transactions = Transaction.where("account_id = ?", params[:account_id])
+    @transactions = transactions_scope.all
     render json: @transactions
+  end
+  
+  private
+  def transactions_scope
+    if params[:account_id].present?
+      account = Account.find(params[:account_id])
+      account.transactions
+    else
+      Transaction
+    end
   end
 
   # GET /transactions/{transaction id}

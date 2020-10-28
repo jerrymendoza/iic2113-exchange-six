@@ -13,12 +13,12 @@ Rails.application.routes.draw do
            registrations: 'api/v1/users/registrations',
        }, skip: [:sessions, :password]
 
-      resources :accounts do
+      resources :transactions
+       resources :accounts do
         resources :transactions
       end
       resources :coins
       resources :users
-      resources :transactions
     end
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
