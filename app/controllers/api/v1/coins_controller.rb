@@ -1,6 +1,6 @@
 class Api::V1::CoinsController < Api::V1::BaseController
 	before_action :set_coin, only: [:show, :update, :destroy]
-
+  skip_before_action :doorkeeper_authorize!, only: [:index]
   # GET /coins
   def index
       @coins = Coin.all
