@@ -3,18 +3,8 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   # GET /transactions
   def index
-    @transactions = transactions_scope.all
+    @transactions = Transaction.all
     render json: @transactions
-  end
-  
-  private
-  def transactions_scope
-    if params[:account_id].present?
-      account = Account.find(params[:account_id])
-      account.transactions
-    else
-      Transaction
-    end
   end
 
   # GET /transactions/{transaction id}
@@ -48,6 +38,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
   end
 
   def validate_transaction(transaction_params)
+    puts transaction_params
     coin = Coin.find(transaction_params[:coin_id])
     account = Account.find(transaction_params[:account_id])
     valid_transaction = true
@@ -70,8 +61,10 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     end
 
     if valid_transaction
+      puts 4
       return change_balances(account, coin, transaction_params[:tipo], transaction_params[:cantidad])
     else
+      puts 5
       return false
     end
   end
@@ -99,6 +92,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     @transaction.valor_clp = price
     @transaction.save
     update_price(coin, transaction_type)
+    puts "poto"
     return true
   end
 
