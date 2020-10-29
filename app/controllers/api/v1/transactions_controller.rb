@@ -61,10 +61,8 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     end
 
     if valid_transaction
-      puts 4
       return change_balances(account, coin, transaction_params[:tipo], transaction_params[:cantidad])
     else
-      puts 5
       return false
     end
   end
@@ -92,7 +90,6 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     @transaction.valor_clp = price
     @transaction.save
     update_price(coin, transaction_type)
-    puts "poto"
     return true
   end
 
