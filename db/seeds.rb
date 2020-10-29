@@ -27,7 +27,7 @@ puts "Created #{bth.tipo}"
 Account.destroy_all
 5.times do |number|
   account = Account.create({
-    saldo_clp: rand(1000), 
+    saldo_clp: rand(10000..100000), 
     btfs: rand(100),
     bths: rand(100), 
     is_partner: [true, false].sample

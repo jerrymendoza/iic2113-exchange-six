@@ -3,7 +3,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   # GET /transactions
   def index
-    @transactions = Transaction.where("account_id = ?", params[:account_id])
+    @transactions = Transaction.all
     render json: @transactions
   end
 
@@ -38,6 +38,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
   end
 
   def validate_transaction(transaction_params)
+    puts transaction_params
     coin = Coin.find(transaction_params[:coin_id])
     account = Account.find(transaction_params[:account_id])
     valid_transaction = true
