@@ -1,9 +1,11 @@
 class Api::V1::TransactionsController < Api::V1::BaseController
   before_action :set_transaction, only: [:show, :update, :destroy]
+  before_action :set_account
 
   # GET /transactions
+  # GET account/:id/transaction
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.where(account: @account)
     render json: @transactions
   end
 
@@ -38,22 +40,21 @@ class Api::V1::TransactionsController < Api::V1::BaseController
   end
 
   def validate_transaction(transaction_params)
-    puts transaction_params
     coin = Coin.find(transaction_params[:coin_id])
-    account = Account.find(transaction_params[:account_id])
+    
     valid_transaction = true
     if transaction_params[:tipo] == "COMPRA"
       if coin.cantidad < transaction_params[:cantidad]
         valid_transaction = false
-      elsif account.saldo_clp < coin.precio_compra * transaction_params[:cantidad] && !account.is_partner
+      elsif @account.saldo_clp < coin.precio_compra * transaction_params[:cantidad] && !@account.is_partner
         valid_transaction = false
       end
     elsif transaction_params[:tipo] == "VENTA" && coin.tipo == "BTF"
-      if account.btfs < transaction_params[:cantidad]
+      if @account.btfs < transaction_params[:cantidad]
         valid_transaction = false
       end
     elsif transaction_params[:tipo] == "VENTA" && coin.tipo == "BTH"
-      if account.bths < transaction_params[:cantidad]
+      if @account.bths < transaction_params[:cantidad]
         valid_transaction = false
       end
     else
@@ -61,28 +62,28 @@ class Api::V1::TransactionsController < Api::V1::BaseController
     end
 
     if valid_transaction
-      return change_balances(account, coin, transaction_params[:tipo], transaction_params[:cantidad])
+      return change_balances(coin, transaction_params[:tipo], transaction_params[:cantidad])
     else
       return false
     end
   end
 
-  def change_balances(account, coin, transaction_type, amount)
+  def change_balances(coin, transaction_type, amount)
     price = coin.precio_compra
     if transaction_type == "VENTA"
       amount = amount * -1
       price = coin.precio_venta
     end
     if coin.tipo == "BTF"
-      account.btfs += amount
-      account.saldo_clp -= amount * price
-      account.save
+      @account.btfs += amount
+      @account.saldo_clp -= amount * price
+      @account.save
       coin.cantidad -= amount
       coin.save
     else
-      account.bths += amount
-      account.saldo_clp -= amount * price
-      account.save
+      @account.bths += amount
+      @account.saldo_clp -= amount * price
+      @account.save
       coin.cantidad -= amount
       coin.save
     end
@@ -110,6 +111,10 @@ class Api::V1::TransactionsController < Api::V1::BaseController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:coin_id, :account_id, :cantidad, :tipo)
+    params.require(:transaction).permit(:coin_id, :cantidad, :tipo).merge(:account_id => @account.id)
+  end
+
+  def set_account
+    @account = Account.where(user: current_resource_owner).first
   end
 end
