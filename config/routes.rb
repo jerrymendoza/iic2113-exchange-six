@@ -14,9 +14,7 @@ Rails.application.routes.draw do
        }, skip: [:sessions, :password]
 
       resources :transactions
-      resources :accounts do
-        resources :transactions, only: [:index]
-      end
+      resources :accounts
       resources :coins
       resources :users
     end
