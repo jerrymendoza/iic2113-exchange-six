@@ -26,23 +26,16 @@ puts "Created #{bth.tipo}"
 # Accounts
 Account.destroy_all
 5.times do |number|
-  account = Account.create({
-    saldo_clp: rand(10000..100000), 
-    btfs: rand(100),
-    bths: rand(100), 
-    is_partner: [true, false].sample
-  })
   user = User.create({
     email: Faker::Internet.email(domain: 'uc.cl'),
     password: "password",
     password_confirmation: "password",
-    account_id: account 
   })
   puts "Created #{user.email}"
   rand(7).times do |t|
     transaction = Transaction.create({
       coin: bth, 
-      account: account, 
+      account: user.account, 
       cantidad: rand(3..15),
       valor_clp: rand(3000..3100),
       tipo:  ["COMPRA", "VENTA"].sample
