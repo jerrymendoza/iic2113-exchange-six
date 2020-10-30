@@ -13,7 +13,7 @@ class User < ApplicationRecord
       saldo_clp: rand(10000..100000), 
       btfs: rand(100),
       bths: rand(100), 
-      is_partner: [true, false].sample
+      is_partner: false
     })
     self.account = account
   end

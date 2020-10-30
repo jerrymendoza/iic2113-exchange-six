@@ -4,7 +4,7 @@ class CreateAccounts < ActiveRecord::Migration[6.0]
       t.float :saldo_clp
       t.integer :btfs
       t.integer :bths
-      t.boolean :is_partner
+      t.boolean :is_partner, default: false
 
       t.timestamps
     end
