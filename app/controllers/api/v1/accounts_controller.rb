@@ -1,12 +1,36 @@
 class Api::V1::AccountsController < Api::V1::BaseController
-  before_action :set_account, only: [:show, :update, :destroy]
+  before_action :set_account, only: [:show, :update, :destroy, :tokens, :generate_token]
 
   # GET /accounts
   def index
       @account = Account.where(user: current_resource_owner).first
       render json: @account
   end
+  # GET 
+  def tokens
+    sql = """SELECT token, expires_in
+            FROM oauth_access_tokens 
+            WHERE resource_owner_id = #{@account.id}"""
 
+    result = ActiveRecord::Base.connection.execute(sql)
+    render json: result.to_json
+  end
+  # POST 
+  def generate_token
+    application = Doorkeeper::Application.all.first
+    access_token = Doorkeeper::AccessToken.create!(
+      :application_id => application.id, 
+      :resource_owner_id => @account.id, :scopes => "")
+
+    sql = """SELECT *
+           FROM oauth_access_tokens 
+           WHERE resource_owner_id = #{@account.id} 
+           ORDER BY created_at DESC
+           LIMIT 1"""
+    result = ActiveRecord::Base.connection.execute(sql)
+    render json: result[0].to_json
+
+  end
   # GET /accounts/{account id}
   def show
     render json: @account
@@ -36,6 +60,8 @@ class Api::V1::AccountsController < Api::V1::BaseController
   def destroy
     @account.destroy
   end
+
+  
 
   private
 
