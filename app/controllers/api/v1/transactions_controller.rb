@@ -95,7 +95,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
   end
 
   def update_price(coin, transaction_type)
-    if transaction_type == "VENTA"
+    if transaction_type == "COMPRA"
       coin.precio_venta *= 1.03
       coin.save
     else
