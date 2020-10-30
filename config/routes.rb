@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  root to: 'documentation#index'
 
   use_doorkeeper do
     controllers tokens: 'custom_tokens'

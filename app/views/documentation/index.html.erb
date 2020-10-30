@@ -1,0 +1,325 @@
+
+
+<% content_for :header do %>
+    <script>hljs.initHighlightingOnLoad();</script>
+<% end %>
+
+<div class="left-menu">
+    <div class="content-logo">
+        <span>exchangesix</span>
+        <span>API Documentation</span>
+    </div>
+    <div class="content-menu">
+        <ul>
+            <li class="scroll-to-link active" data-target="get-started">
+                <a>GET STARTED</a>
+            </li>
+            <li class="scroll-to-link" data-target="post-signup">
+                <a>Post signup</a>
+            </li>
+            <li class="scroll-to-link" data-target="post-signin">
+                <a>Post signin</a>
+            </li>
+            <li class="scroll-to-link" data-target="get-account">
+                <a>Get account</a>
+            </li>
+            <li class="scroll-to-link" data-target="get-coins">
+                <a>Get coins</a>
+            </li>
+            <li class="scroll-to-link" data-target="get-transactions">
+                <a>Get transactions</a>
+            </li>
+            <li class="scroll-to-link" data-target="post-transactions">
+                <a>Post transactions</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="content-page">
+    <div class="content-code"></div>
+    <div class="content">
+        <div class="overflow-hidden content-section" id="content-get-started">
+            <h1 id="get-started">Get started</h1>
+            <pre>
+    API Endpoint
+
+        https://api.exchangesix.com/
+                </pre>
+            <p>
+            Qué bien! Encontraste la documentación de la API REST de <a href="http://exchangesix.com">exchangesix.com</a>. Si no eres un desarrollador de software, andas muy perdido 😀.
+            </p>
+        </div>
+
+        <div class="overflow-hidden content-section" id="content-post-signup">
+        <h1 id="post-signup">Post signup</h1>
+        <p>
+        Para registrar un nuevo usuario necesitas hacer un POST request a la url:<br>
+            <code class="higlighted">api.exchangesix.com/api/v1/users/</code>
+        </p>
+        <br>
+        <pre><code class="json">
+JSON POST BODY
+{
+    "user": {
+        "email":"user@domain.cl",
+        "password":"password",
+        "password_confirmation": "password"
+    }
+}
+        </code></pre>
+    </div>
+
+
+
+
+
+
+        <div class="overflow-hidden content-section" id="content-post-signin">
+            <h2 id="post-signin">post signin</h2>
+            <pre><code class="bash">
+# curl para iniciar sesion
+curl \
+-X POST http://api.exchangesix.com/oauth/token \
+-F 'client_id=UID' \
+-F 'client_secret=client_secret' \
+
+                </code></pre>
+            <p>
+                Para iniciar sesion necesitas haces un POST request a la url:<br>
+                <code class="higlighted">http://api.exchangesix.com/oauth/token</code>
+            </p>
+            <br>
+            <pre><code class="json">
+
+JSON POST BODY:
+{
+    "email": "joey.cummings@uc.cl",
+    "password": "mipassword",
+    "grant_type": "password"
+}
+
+Respuesta:
+
+{
+    "access_token": "topE5Wf1dve0rdeeJgccmmGeEt9nns4WpzBAjmHF5oE",
+    "token_type": "Bearer",
+    "expires_in": 432000,
+    "created_at": 1604020212,
+    "status_code": 200,
+    "message": "Sesión iniciada.",
+    "result": {
+        "id": 6,
+        "email": "joey.cummings@uc.cl",
+        "created_at": "2020-10-30T01:09:43.200Z",
+        "updated_at": "2020-10-30T01:09:43.200Z"
+    }
+}
+                </code></pre>
+            <h4>QUERY PARAMETERS</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>client_id</td>
+                    <td>String</td>
+                    <td>Tu uid de aplicacion generado en el seed, aparece en consola</td>
+                </tr>
+                <tr>
+                    <td>client_secret</td>
+                    <td>String</td>
+                    <td>Tu secret de aplicacion generado en el seed, aparece en consola</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="overflow-hidden content-section" id="content-get-account">
+            <h1 id="get-account">Get account</h1>
+            <p>
+                Para obtener la informacion d emi cuenta:<br>
+                <code class="higlighted">api.exchangesix.com/api/v1/accounts</code>
+            </p>
+            <h4>HEADER FIELDS</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th>Header Field</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Authorization</td>
+                    <td>Required. Un Bearer access_token valido de usuario</td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+
+            <pre><code class="json">
+Ejemplo respuesta:
+{
+    "id": 6,
+    "saldo_clp": 21752.0,
+    "btfs": 4,
+    "bths": 26,
+    "is_partner": false,
+    "created_at": "2020-10-30T15:05:31.057Z",
+    "updated_at": "2020-10-30T15:13:43.313Z",
+    "user_id": 6
+}
+            </code></pre>
+        </div>
+
+
+
+
+
+
+
+        <div class="overflow-hidden content-section" id="content-get-coins">
+            <h1 id="get-coins">get coins</h1>
+            
+            <p>
+                Para obtener los precios de compra y venta de las monedas admitidas:<br>
+                <code class="higlighted">http://api.exchangesix.com/api/v1/coins</code>
+            </p>
+            <br>
+            <pre><code class="json">
+Ejemplo respuesta:
+
+{
+"coins": [
+        {
+            "id": 2,
+            "tipo": "BTH",
+            "cantidad": 2000,
+            "created_at": "2020-10-30T00:57:21.037Z",
+            "updated_at": "2020-10-30T00:57:21.037Z",
+            "precio_venta": 8000.0,
+            "precio_compra": 8000.0
+        },
+        {
+            "id": 1,
+            "tipo": "BTF",
+            "cantidad": 957,
+            "created_at": "2020-10-30T00:57:21.029Z",
+            "updated_at": "2020-10-30T01:55:54.912Z",
+            "precio_venta": 5000.0,
+            "precio_compra": 6149.0
+        }
+    ]
+}
+
+</code></pre>
+        </div>
+
+
+        <div class="overflow-hidden content-section" id="content-get-transactions">
+            <h1 id="get-transactions">get transactions</h1>
+            <h4>HEADER FIELDS</h4>
+            <table>
+                <thead>
+                <tr>
+                    <th>Header Field</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Authorization</td>
+                    <td>Required. Un Bearer access_token valido de usuario</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>
+                Para obtener mi historial de transacciones<br>
+                <code class="higlighted">http://api.exchangesix.com/api/v1/transactions</code>
+            </p>
+            <br>
+            <pre><code class="json">
+Ejemplo respuesta:
+{
+    "transactions": [
+        {
+            "id": 18,
+            "coin_id": 1,
+            "account_id": 6,
+            "cantidad": 2,
+            "valor_clp": 5150.0,
+            "tipo": "COMPRA",
+            "created_at": "2020-10-30T01:13:58.354Z",
+            "updated_at": "2020-10-30T01:13:58.363Z"
+        },
+        {
+            "id": 19,
+            "coin_id": 1,
+            "account_id": 6,
+            "cantidad": 2,
+            "valor_clp": 5304.5,
+            "tipo": "COMPRA",
+            "created_at": "2020-10-30T01:16:21.083Z",
+            "updated_at": "2020-10-30T01:16:21.097Z"
+        },
+        {
+            "id": 20,
+            "coin_id": 1,
+            "account_id": 6,
+            "cantidad": 2,
+            "valor_clp": 5463.635,
+            "tipo": "COMPRA",
+            "created_at": "2020-10-30T01:16:37.470Z",
+            "updated_at": "2020-10-30T01:16:37.492Z"
+        }
+    ]
+}
+
+            </code></pre>
+        </div>
+
+        <div class="overflow-hidden content-section" id="content-post-transaction">
+            <h1 id="post-transactions">post transactions</h1>
+            <p>
+                Para ejecutar ordenes de compra o venta:<br>
+                <code class="higlighted">http://api.exchangesix.com/api/v1/transactions</code>
+            </p>
+            <br>
+            <pre><code class="json">
+JSON POST BODY:
+{
+    "coin_id":1,
+    "cantidad": 4,
+    "tipo": "COMPRA"
+}
+
+Ejemplo respuesta:
+{
+    "id": 23,
+    "coin_id": 1,
+    "account_id": 6,
+    "cantidad": 4,
+    "valor_clp": 5970.0,
+    "tipo": "COMPRA",
+    "created_at": "2020-10-30T01:55:54.773Z",
+    "updated_at": "2020-10-30T01:55:54.846Z"
+}
+            </code></pre>
+        </div>
+
+
+        
+    </div>
+
+    <div class="content-code"></div>
+</div>
+
+<% content_for :footer do %>
+
+    <% javascript_pack_tag 'docs_script' %>
+<% end %>
