@@ -27,6 +27,7 @@ Rails.application.configure do
   config.hosts.clear
 
   config.action_mailer.delivery_method = :smtp
+  # https://dev.to/morinoko/sending-emails-in-rails-with-action-mailer-and-gmail-35g4
   # host = 'exchangesix.com' #replace with your own url
   host = 'localhost:3000'
   # config.action_mailer.default_url_options = { host: host }
