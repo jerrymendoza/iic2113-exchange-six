@@ -8,8 +8,7 @@ class Api::V1::AccountsController < Api::V1::BaseController
   end
   # GET 
   def tokens
-    #token, expires_in  oCMOuIVoChh8MsirT3aXosfDklQMgKRRMVlUQYBogsY
-    sql = """SELECT *
+    sql = """SELECT token, expires_in
             FROM oauth_access_tokens where resource_owner_id = #{@account.id}"""
 
     result = ActiveRecord::Base.connection.execute(sql)
