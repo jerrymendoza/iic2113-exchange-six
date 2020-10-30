@@ -9,7 +9,8 @@ class Api::V1::AccountsController < Api::V1::BaseController
   # GET 
   def tokens
     sql = """SELECT token, expires_in
-            FROM oauth_access_tokens where resource_owner_id = #{@account.id}"""
+            FROM oauth_access_tokens 
+            WHERE resource_owner_id = #{@account.id}"""
 
     result = ActiveRecord::Base.connection.execute(sql)
     render json: result.to_json
