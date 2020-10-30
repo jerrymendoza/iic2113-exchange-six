@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_174100) do
     t.float "saldo_clp"
     t.integer "btfs"
     t.integer "bths"
-    t.boolean "is_partner"
+    t.boolean "is_partner", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
