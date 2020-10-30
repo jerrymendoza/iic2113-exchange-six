@@ -3,8 +3,8 @@ class Api::V1::AccountsController < Api::V1::BaseController
 
   # GET /accounts
   def index
-      @accounts = Account.all
-      render json: @accounts
+      @account = Account.where(user: current_resource_owner).first
+      render json: @account
   end
 
   # GET /accounts/{account id}
@@ -40,10 +40,10 @@ class Api::V1::AccountsController < Api::V1::BaseController
   private
 
   def set_account
-    @account = Account.find(params[:id])
+    @account = Account.where(user: current_resource_owner).first
   end
 
   def account_params
-    params.require(:account).permit(:saldo_clp, :btfs, :bths, :is_partner)
+    params.require(:account).permit(:saldo_clp, :btfs, :bths, :is_partner).merge(:account_id => @account.id)
   end
 end
