@@ -14,6 +14,8 @@ Rails.application.routes.draw do
        }, skip: [:sessions, :password]
 
       resources :transactions
+      get 'accounts/tokens', to: 'accounts#tokens'
+      post 'accounts/generate_token', to: 'accounts#generate_token'
       resources :accounts
       resources :coins
       resources :users
