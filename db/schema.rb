@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2020_10_17_174100) do
     t.boolean "is_partner"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -121,17 +123,15 @@ ActiveRecord::Schema.define(version: 2020_10_17_174100) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "account_id"
-    t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "coins"
-  add_foreign_key "users", "accounts"
 end

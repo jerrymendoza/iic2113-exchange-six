@@ -4,6 +4,19 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :account
+
+  before_create :create_account
+
+  private
+  def create_account
+    account = Account.create({
+      saldo_clp: rand(10000..100000), 
+      btfs: rand(100),
+      bths: rand(100), 
+      is_partner: [true, false].sample
+    })
+    self.account = account
+  end
 end
 
 # == Schema Information
@@ -18,15 +31,9 @@ end
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  account_id             :bigint(8)
 #
 # Indexes
 #
-#  index_users_on_account_id            (account_id)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#
-# Foreign Keys
-#
-#  fk_rails_...  (account_id => accounts.id)
 #
