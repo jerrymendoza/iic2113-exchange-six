@@ -23,6 +23,12 @@
             <li class="scroll-to-link" data-target="get-account">
                 <a>Get account</a>
             </li>
+            <li class="scroll-to-link" data-target="get-tokens">
+                <a>Get tokens</a>
+            </li>
+            <li class="scroll-to-link" data-target="post-token">
+                <a>Post token</a>
+            </li>
             <li class="scroll-to-link" data-target="get-coins">
                 <a>Get coins</a>
             </li>
@@ -178,9 +184,86 @@ Ejemplo respuesta:
         </div>
 
 
+        <div class="overflow-hidden content-section" id="content-get-tokens">
+        <h1 id="get-tokens">Get tokens</h1>
+        <p>
+            Para obtener mis tokens:<br>
+            <code class="higlighted">api.exchangesix.com/api/v1/accounts/tokens</code>
+        </p>
+        <h4>HEADER FIELDS</h4>
+        <table>
+            <thead>
+            <tr>
+                <th>Header Field</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Authorization</td>
+                <td>Required. Un Bearer access_token valido de usuario</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
 
+        <pre><code class="json">
+Ejemplo respuesta:
+[
+    {
+        "token": "0LEqQ0FjcA_W9Z_IbA29nGPaiBK1-ACQlSEiv00223c",
+        "expires_in": 432000
+    },
+    {
+        "token": "klaXhrIbwGtO4NXnOBwUJxGIMmzByEJanCNNk5acff4",
+        "expires_in": null
+    }
+]
+        </code></pre>
+    </div>
 
+    <div class="overflow-hidden content-section" id="content-post-token">
+    <h1 id="post-token">Post token</h1>
+    <p>
+        Para generar un nuevo token:<br>
+        <code class="higlighted">api.exchangesix.com/api/v1/accounts/generate_token</code>
+    </p>
+    <h4>HEADER FIELDS</h4>
+    <table>
+        <thead>
+        <tr>
+            <th>Header Field</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Authorization</td>
+            <td>Required. Un Bearer access_token valido de usuario</td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
 
+    <pre><code class="json">
+JSON POST BODY:
+{ }
+
+Ejemplo respuesta:
+{
+    "id": 20,
+    "resource_owner_id": 3,
+    "application_id": 1,
+    "token": "irJ3G7_k9J84TTd9z_veNKOSY6ndAwMx3UQ02z_nSw8",
+    "refresh_token": null,
+    "expires_in": null,
+    "revoked_at": null,
+    "created_at": "2020-10-30T21:39:40.046Z",
+    "scopes": "",
+    "previous_refresh_token": ""
+}
+    </code></pre>
+</div>
 
 
         <div class="overflow-hidden content-section" id="content-get-coins">
