@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Has realizado una transacción.</p> 
+    <p>
+    Detalles<br>
+    --------------------------</p>
+    <p>Email: <%= @user.email %> </p>
+    <p>Account ID: <%= @user.account.id %></p>
+    <p>Moneda: <%= @coin.tipo %></p>
+    <p>Cantidad: <%= @transaction.cantidad %></p>
+
+  </body>
+</html>

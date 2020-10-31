@@ -24,4 +24,22 @@ Rails.application.configure do
   config.assets.debug = true
   config.assets.quiet = true
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.hosts.clear
+
+  config.action_mailer.delivery_method = :smtp
+  # https://dev.to/morinoko/sending-emails-in-rails-with-action-mailer-and-gmail-35g4
+  # host = 'exchangesix.com' #replace with your own url
+  host = 'api.exchangesix.com'
+  # config.action_mailer.default_url_options = { host: host }
+  config.action_mailer.default_url_options = { :host => host, protocol: 'http' }
+
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => ENV["EMAIL"],
+    :password             => ENV["EMAIL_PW"],
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
 end

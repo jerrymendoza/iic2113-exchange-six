@@ -1,6 +1,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'json'
 Bundler.require(*Rails.groups)
 
 module RepoBase
@@ -20,5 +21,6 @@ module RepoBase
     config.i18n.default_locale = 'es-CL'
     config.assets.paths << Rails.root.join('node_modules')
     config.load_defaults 6.0
+
   end
 end

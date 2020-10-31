@@ -3,6 +3,20 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  has_one :account
+
+  before_create :create_account
+
+  private
+  def create_account
+    account = Account.create({
+      saldo_clp: rand(10000..100000), 
+      btfs: rand(100),
+      bths: rand(100), 
+      is_partner: false
+    })
+    self.account = account
+  end
 end
 
 # == Schema Information

@@ -2,7 +2,7 @@ development: &default
   adapter: postgresql
   database: repo-base_development
   encoding: utf8
-  host: <%= ENV["DB_HOST"] || "127.0.0.1" %>
+  host: <%= ENV["DB_HOST"] || "postgresql" %>
   port: <%= ENV["DB_PORT"] || 5432 %>
   username: <%= ENV["DB_USER"] || 'postgres' %>
   min_messages: warning

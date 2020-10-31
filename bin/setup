@@ -13,9 +13,6 @@ bundle check || bundle install
 # Install javascript dependencies
 bin/yarn install
 
-# Set up required services
-docker-compose up -d
-
 # Set up database
 bin/rails db:setup
 
