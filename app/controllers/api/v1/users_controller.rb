@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :get_transactions]
 
   # GET /users
   def index
@@ -39,7 +39,8 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def get_transactions
     # change token to user.token
-    token = "nnYawuaSY427Lucp1LjM"
+    puts @user
+    token = @user.bank_token
     uri="https://bankeleven.herokuapp.com/api/v1/transactions/?api_token=#{token}"
     response = HTTParty.get(uri,
       {format: :json})
