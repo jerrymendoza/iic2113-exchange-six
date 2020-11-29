@@ -40,11 +40,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def get_transactions
     # change token to user.token
     puts @user
-    token = @user.bank_token
-    uri="https://bankeleven.herokuapp.com/api/v1/transactions/?api_token=#{token}"
-    response = HTTParty.get(uri,
-      {format: :json})
-    render json: response
+     @user.update_transactions
   end
 
   private

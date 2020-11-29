@@ -7,6 +7,15 @@ class User < ApplicationRecord
 
   before_create :create_account
 
+  def update_transactions
+    token = self.bank_token
+    uri="https://bankeleven.herokuapp.com/api/v1/transactions/?api_token=#{token}"
+    response = HTTParty.get(uri,
+      {format: :json})
+    puts response.body
+    response
+  end
+
   private
   def create_account
     account = Account.create({
@@ -17,6 +26,8 @@ class User < ApplicationRecord
     })
     self.account = account
   end
+
+
 end
 
 # == Schema Information
