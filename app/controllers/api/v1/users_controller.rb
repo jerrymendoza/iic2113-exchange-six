@@ -37,6 +37,15 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user.destroy
   end
 
+  def get_transactions
+    # change token to user.token
+    token = "nnYawuaSY427Lucp1LjM"
+    uri="https://bankeleven.herokuapp.com/api/v1/transactions/?api_token=#{token}"
+    response = HTTParty.get(uri,
+      {format: :json})
+    render json: response
+  end
+
   private
 
   def set_user
@@ -44,6 +53,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:email, :account_id)
+    params.require(:user).permit(:email, :account_id, :bank_token)
   end
 end

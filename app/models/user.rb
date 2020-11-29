@@ -10,7 +10,7 @@ class User < ApplicationRecord
   private
   def create_account
     account = Account.create({
-      saldo_clp: rand(10000..100000), 
+      saldo_clp: 0, 
       btfs: rand(100),
       bths: rand(100), 
       is_partner: false
@@ -31,6 +31,7 @@ end
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  bank_token             :string
 #
 # Indexes
 #
