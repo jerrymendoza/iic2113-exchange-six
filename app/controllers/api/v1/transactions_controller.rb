@@ -16,6 +16,7 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   # POST /transactions
   def create
+    # TODO: update @account.saldo_clp
     effective_transaction = validate_transaction(transaction_params)
     if effective_transaction
       TransactionMailer.with(transaction: @transaction).new_transaction_email.deliver_later

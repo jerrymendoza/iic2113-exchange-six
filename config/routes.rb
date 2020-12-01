@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
       resources :transactions
       get 'accounts/tokens', to: 'accounts#tokens'
+      get 'users/get_transactions', to: 'users#get_transactions'
       post 'accounts/generate_token', to: 'accounts#generate_token'
       resources :accounts
       resources :coins

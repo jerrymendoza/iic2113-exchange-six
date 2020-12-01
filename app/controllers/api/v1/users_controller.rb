@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :get_transactions]
 
   # GET /users
   def index
@@ -37,6 +37,12 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user.destroy
   end
 
+  def get_transactions
+    # change token to user.token
+    puts @user
+     @user.update_transactions
+  end
+
   private
 
   def set_user
@@ -44,6 +50,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:email, :account_id)
+    params.require(:user).permit(:email, :account_id, :bank_token)
   end
 end
