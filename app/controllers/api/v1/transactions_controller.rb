@@ -1,6 +1,8 @@
 class Api::V1::TransactionsController < Api::V1::BaseController
   before_action :set_transaction, only: [:show, :update, :destroy]
   before_action :set_account
+  before_action :update_user_balance, only: [:create]
+
 
   # GET /transactions
   # GET account/:id/transaction
@@ -117,5 +119,9 @@ class Api::V1::TransactionsController < Api::V1::BaseController
 
   def set_account
     @account = Account.where(user: current_resource_owner).first
+  end
+
+  def update_user_balance
+    @account.user.update_balance
   end
 end
