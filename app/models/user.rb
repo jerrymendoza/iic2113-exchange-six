@@ -8,10 +8,11 @@ class User < ApplicationRecord
   before_create :create_account
 
   def get_transactions
-    token = self.bank_token
+    token = bank_token
     current_date = DateTime.now
-    uri = "https://bankeleven.herokuapp.com/api/v1/transactions/date/?api_token=#{token}&from=#{Date.new(1990,1,1)}&to=#{current_date}"
-    query = HTTParty.get(uri, {format: :json})
+    uri = "#{ENV['URI_CONST']}/?api_token=#{token}"\
+          "&from=#{last_review}&to=#{current_date}"
+    query = HTTParty.get(uri, { format: :json })
     if query.code == 200
       update(last_review: current_date)
       return JSON.parse(query.body)
@@ -20,12 +21,11 @@ class User < ApplicationRecord
   end
 
   def update_balance
-    ### variables de entorno
-    puts "Haciendo update balance !!!!!!!!!!!!!!!!!!"
-    bank_accounts = ["113", "123"]
+    bank_accounts = ENV['ACCOUNTS']
     response = get_transactions
     response.each do |transaction|
-      if (bank_accounts.include? transaction["account_number"]) && (transaction["transaction_type"] == "transfer")
+      if (bank_accounts.include? transaction['account_number']) &&
+          (transaction['transaction_type'] == 'transfer')
         current_balance = account.saldo_clp + transaction['amount']
         account.update(saldo_clp: current_balance)
       end
