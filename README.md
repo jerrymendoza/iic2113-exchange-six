@@ -2,11 +2,11 @@
 
 ## Overview
 
-API en Ruby 2.7 on Rails montado con Docker-Compose. Se puede visualizar en [api.exchangesix.com](api.exchangesix.com) donde está montada usando Heroku. Ahí se encuentra la documentación completa de consumo de la API.
+API en Ruby 2.7 on Rails montado con Docker-Compose. Se puede visualizar en [api.exchange-six.com](api.exchange-six.com) donde está montada usando Heroku. Ahí se encuentra la documentación completa de consumo de la API.
 
 Puedes encontrar los diagramas UML de Exchange-Six en la carpeta `/docs` de este repositorio.
 
-El frontend de ExchangeSix se visualiza en [exchangesix.com](exchangesix.com). La documentación y código correspondiente al frontend se encuentra en [Exchange-Six Secondary](http://api.exchangesix.com/).
+El frontend de Exchange-Six se visualiza en [exchange-six.com](exchange-six.com). La documentación y código correspondiente al frontend se encuentra en [Exchange-Six Secondary](http://api.exchange-six.com/).
 
 ### Inicialización con Docker
 
