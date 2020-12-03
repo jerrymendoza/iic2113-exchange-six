@@ -82,7 +82,7 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :bank_token)
   end
   
 end
