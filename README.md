@@ -2,29 +2,47 @@
 
 ## Overview
 
-API en Ruby 2.7 on Rails montado con Docker-Compose. Se puede visualizar en [api.exchange-six.com](api.exchange-six.com) donde está montada usando Heroku. Ahí se encuentra la documentación completa de consumo de la API.
+La aplicación no está montada en un servidor, ya que para esta entrega no era necesario. Lo intentamos, pero preferimos aprovechar el tiempo en las funcionalidades. De igual forma se indica en esta [issue](https://github.com/IIC2113-2020-2/Recursos/issues/95).
 
-Puedes encontrar los diagramas UML de Exchange-Six en la carpeta `/docs` de este repositorio.
+## Variables de entorno
+Argregar estar variables al archivo `.env.development`  
+`ACCOUNTS = ["113", "123"]`  
+`URI_CONST = https://bankeleven.herokuapp.com/api/v1/transactions/date`
 
-El frontend de Exchange-Six se visualiza en [exchange-six.com](exchange-six.com). La documentación y código correspondiente al frontend se encuentra en [Exchange-Six Secondary](http://api.exchange-six.com/).
+### Inicialización 
 
-### Inicialización con Docker
+Para poder ejecutar la aplicacion, primero que nada se debe correr:   
+`
+./bin/setup
+`
+Al hacer esto recordar guardar el json entregado por el comando, que será utilizado después para la obtención del token.  
+Para configurar el proyecto en tu máquina.   
+Luego, en otra consola, se debe ubicar dentro de la carpeta que posee la aplicación y correr:  
+`
+sidekiq
+`
+Para poder iniciar el proceso de los workers   
+Finalmente, para poder correr la aplicación, lo que se debe hacer es ejecutar:   
+`
+rails s
+`
 
-    docker-compose build
+## Funcionalidades logradas
 
-Si clonas el repositorio por primera vez:
+Realizamos todas las funcionalidades pedidas para esta entrega.  
+Para la sección de integración con la API, logramos conectarnos a nuestra API (bonus) a través del token del usuario del banco de nuestro repositorio anterior. Esto se hizo en lugar asociarlo a su RUT, ya que para la Entrega 1 y 2 consideramos que este atributo no era necesario agregarlo al modelo, ya que no aportaba información adicional para nuestra aplicación. Esto fue consultado con el ayudante previamente.  
 
-    docker-compose run web ./bin/setup
+# Funcionamiento de la integración de las API
+* Con las credenciales del exchange se crearon 2 cuentas en nuestra aplicación del banco de la entrega anterior, cuyos números de cuenta son 113 y 123.  
+* Al momento de crear un usuario en la aplicación de exchange, además de su mail y contraseña, se necesita ingresar un token válido de la aplicación del banco.
+* Al ingresar por primera vez a la aplicación de exchange el usuario tendrá 0 CLP en su cuenta, por lo que no podrá hacer ningún cambio de monedas.
+* Si el usuario desea tener CLP para cambiar en el exchange, debe ingresar a su cuenta del banco (con el mismo token que se ingresó al crear la cuenta en el exchange) y debe depositar a una de las 2 cuentas del banco (113 o 123) el monto deseado.  
+* Una vez realizada la transferencia, se verá reflejado el cambio en su saldo CLP en el exchange.
 
-Finalmente:
+Con la librería sidekiq cada 3 horas, el precio de venta o compra de las criptomonedas se dispara o cae de forma aleatoria.
+No trabajamos en el frontend, ya que no fue estrictamente necesario. Solo trabajamos en el repositorio que se nos fue asignado (backend).
 
-    docker-compose up
-
-
-El script hará lo siguiente:  
-
-- Instalar dependencias
-- Preparar la base de datos
+La documentación se encuentra al correr la aplicación localmente. [http://localhost:3000/](http://localhost:3000/)
 
 ## Deployment en Heroku
 
@@ -54,27 +72,4 @@ Para más detalles de cómo configuramos el mailer, revisa el [tutorial que segu
 Para tener control sobre migraciones y evitar errores de keys en las tablas se usó la gema `strong-migrations` que exige uso de las buenas prácticas descritas en el siguiente manual:
 <https://github.com/ankane/strong_migrations#adding-a-reference>
 
-## Funcionalidades logradas
 
-- Debe permitir el registro y login de usuarios. :white_check_mark:
-- Un usuario debe tener una cuenta :white_check_mark: Esto ocurre en el backend. User y Account son dos entidades separadas aunque para el usuario parezcan una sola. 
-- Debe ver cuánto BTF y CLP tiene :white_check_mark:
-- Puede ver sus transacciones hechas (compra y venta de BTF). :white_check_mark:
-- Por simplicidad en esta entrega, todos los usuarios parten con un valor aleatorio entre los 10.000 CLP y los 100.000 CLP. :white_check_mark:
-- Por simplicidad el valor inicial del BTF (o cualquier moneda) y la cantidad será definida por el ayudante al inicio del proyecto. :white_check_mark:
-- Los usuarios podrán transar BTF, esto es: :white_check_mark:
-- Vender BTF si tienen en su cuenta. Al ejecutar una orden de venta de BTF, el usuario ingresa “cuánto BTF quiere vender” y el precio viene dado por el “precio de venta” del mercado. :white_check_mark:
-- Comprar BTF si es que tienen CLP. El ejecutar una orden de compra de BTF, el usuario ingresa “cuánto BTF quiere comprar” y el precio viene dado por el “precio de compra” del mercado. :white_check_mark:
-- Los precios de compra y venta serán rangos aleatorios cuyos mínimos y máximos iniciales serán distintos para cada grupo. Luego de cada transacción, el valor de compra y venta se debe actualizar con la siguiente lógica: :white_check_mark:
-- Si la transacción es venta, el precio del BTF de compra disminuye en 0.03 sobre el porcentaje de su valor. :white_check_mark:
-- Si la transacción es compra, el precio del BTF de venta aumenta en 0.03 sobre el porcentaje de su valor. :white_check_mark:
-- Por simplicidad, las transacciones no tienen delay. :white_check_mark:
-- Por cada transacción se debe enviar un correo al usuario. :white_check_mark:
-- Por simplicidad la cantidad de BTF es constante (ver bonus). :white_check_mark:
-- Debe permitir el tipo de cuenta "partner". Este usuario debe poder comprar y vender sin límite (tener saldos negativos) ya que al ser partner, hacen ajustes de cuentas de forma externa (funcionalidad pensada para simplicidad en la entrega 3). :white_check_mark: Decidimos seguir limitando la venta de monedas a la cantidad que tiene porque nos hacía más sentido en la lógica de la aplicación. Un usuario partner de todas formas puede realizar compras sin tener el saldo necesario.
-- Debe exponer una API. Cada usuario puede generar su “token” para usar la api. Los usuarios a través de la API podrán: :white_check_mark:
-- Obtener los precios actuales de compra y venta en el exchange. :white_check_mark:
-- Vender BTF (ejecutar una orden de compra). :white_check_mark:
-- Comprar BTF (ejecutar una orden de venta). :white_check_mark:
-- Conocer el balance actual de mi cuenta (cuanto BTH y CLP tengo). :white_check_mark:
-- Bonus​: Registrar una segunda moneda: Badtherium (BTH2), que permite compra y venta de BTH-CLP. :white_check_mark:
