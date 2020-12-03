@@ -6,7 +6,7 @@
 
 <div class="left-menu">
     <div class="content-logo">
-        <span>exchangesix</span>
+        <span>exchange-six</span>
         <span>API Documentation</span>
     </div>
     <div class="content-menu">
@@ -49,10 +49,10 @@
             <pre>
     API Endpoint
 
-        https://api.exchangesix.com/
+        https://api.exchange-six.com/
                 </pre>
             <p>
-            Qué bien! Encontraste la documentación de la API REST de <a href="http://exchangesix.com">exchangesix.com</a>. Si no eres un desarrollador de software, andas muy perdido 😀.
+            Qué bien! Encontraste la documentación de la API REST de <a href="http://exchange-six.com">exchange-six.com</a>. Si no eres un desarrollador de software, andas muy perdido 😀.
             </p>
         </div>
 
@@ -60,7 +60,7 @@
         <h1 id="post-signup">Post signup</h1>
         <p>
         Para registrar un nuevo usuario necesitas hacer un POST request a la url:<br>
-            <code class="higlighted">api.exchangesix.com/api/v1/users/</code>
+            <code class="higlighted">api.exchange-six.com/api/v1/users/</code>
         </p>
         <br>
         <pre><code class="json">
@@ -84,14 +84,14 @@ JSON POST BODY
             <pre><code class="bash">
 # curl para iniciar sesion
 curl \
--X POST http://api.exchangesix.com/oauth/token \
+-X POST http://api.exchange-six.com/oauth/token \
 -F 'client_id=UID' \
 -F 'client_secret=client_secret' \
 
                 </code></pre>
             <p>
                 Para iniciar sesion necesitas haces un POST request a la url:<br>
-                <code class="higlighted">http://api.exchangesix.com/oauth/token</code>
+                <code class="higlighted">http://api.exchange-six.com/oauth/token</code>
             </p>
             <br>
             <pre><code class="json">
@@ -148,7 +148,7 @@ Respuesta:
             <h1 id="get-account">Get account</h1>
             <p>
                 Para obtener la informacion d emi cuenta:<br>
-                <code class="higlighted">api.exchangesix.com/api/v1/accounts</code>
+                <code class="higlighted">api.exchange-six.com/api/v1/accounts</code>
             </p>
             <h4>HEADER FIELDS</h4>
             <table>
@@ -187,7 +187,7 @@ Ejemplo respuesta:
         <h1 id="get-tokens">Get tokens</h1>
         <p>
             Para obtener mis tokens:<br>
-            <code class="higlighted">api.exchangesix.com/api/v1/accounts/tokens</code>
+            <code class="higlighted">api.exchange-six.com/api/v1/accounts/tokens</code>
         </p>
         <h4>HEADER FIELDS</h4>
         <table>
@@ -225,7 +225,7 @@ Ejemplo respuesta:
     <h1 id="post-token">Post token</h1>
     <p>
         Para generar un nuevo token:<br>
-        <code class="higlighted">api.exchangesix.com/api/v1/accounts/generate_token</code>
+        <code class="higlighted">api.exchange-six.com/api/v1/accounts/generate_token</code>
     </p>
     <h4>HEADER FIELDS</h4>
     <table>
@@ -270,7 +270,7 @@ Ejemplo respuesta:
             
             <p>
                 Para obtener los precios de compra y venta de las monedas admitidas:<br>
-                <code class="higlighted">http://api.exchangesix.com/api/v1/coins</code>
+                <code class="higlighted">http://api.exchange-six.com/api/v1/coins</code>
             </p>
             <br>
             <pre><code class="json">
@@ -322,7 +322,7 @@ Ejemplo respuesta:
             </table>
             <p>
                 Para obtener mi historial de transacciones<br>
-                <code class="higlighted">http://api.exchangesix.com/api/v1/transactions</code>
+                <code class="higlighted">http://api.exchange-six.com/api/v1/transactions</code>
             </p>
             <br>
             <pre><code class="json">
@@ -369,7 +369,7 @@ Ejemplo respuesta:
             <h1 id="post-transactions">post transactions</h1>
             <p>
                 Para ejecutar ordenes de compra o venta:<br>
-                <code class="higlighted">http://api.exchangesix.com/api/v1/transactions</code>
+                <code class="higlighted">http://api.exchange-six.com/api/v1/transactions</code>
             </p>
             <br>
             <pre><code class="json">
