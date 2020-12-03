@@ -3,7 +3,7 @@ class ExchangeVariationWorker
   
   def perform
     loop do
-      sleep 20
+      sleep 10800
       random_value = rand(-0.2..0.2)
       Coin.all.each do |coin|
         coin.precio_venta = coin.precio_venta + coin.precio_venta * random_value
