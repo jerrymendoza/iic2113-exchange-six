@@ -3,7 +3,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery unless: -> { request.format.json? }
   #before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :doorkeeper_authorize!
+  before_action :add_variation
   respond_to :json
+
+  private 
+  def add_variation
+    yes ||= ExchangeVariationWorker.perform_async
+  end
 
   protected
 
