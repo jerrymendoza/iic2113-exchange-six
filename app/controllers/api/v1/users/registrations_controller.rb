@@ -2,6 +2,7 @@
 
 class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :doorkeeper_authorize!
+  skip_before_action :verify_authenticity_token
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -12,25 +13,14 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    puts "sdfsdfsdfa"
-    puts sign_up_params
     build_resource(sign_up_params)
-    resource.save
-    if resource.persisted?
-      if resource.active_for_authentication?
-        # set_flash_message! :notice, :signed_up
-        # To avoid login comment out sign_up method
-        # sign_up(resource_name, resource)
-        render json: resource # , location: after_sign_up_path_for(resource)
-      else
-        # set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
-        expire_data_after_sign_in!
-        render json: resource # , location: after_inactive_sign_up_path_for(resource)
-      end
+    if (validate_token)
+      save_resource(resource)
     else
       clean_up_passwords resource
       set_minimum_password_length
-      respond_with resource
+      self.response.status = :unprocessable_entity
+      render json: {"errors": {"bank_token":["No es valido"]}}
     end
   end
 
@@ -84,5 +74,32 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   def sign_up_params
       params.require(:user).permit(:email, :password, :bank_token)
   end
-  
+
+  def validate_token
+    token = sign_up_params["bank_token"]
+    puts 'bank token is:'+ token + "------------"
+    uri = "https://bankeleven.herokuapp.com/api/v1/transactions/?api_token=#{token}"
+    query = HTTParty.get(uri, {format: :json})
+    puts "code is: #{query.code}------------"
+    if query.code == 200
+      return true
+    end
+    false
+  end
+
+  def save_resource(resource)
+    resource.save
+    if resource.persisted?;
+      if resource.active_for_authentication?
+        render json: resource # , location: after_sign_up_path_for(resource)
+      else
+        expire_data_after_sign_in!
+        render json: resource # , location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
+  end
 end
