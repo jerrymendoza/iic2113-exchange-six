@@ -1,4 +1,5 @@
 class Api::V1::TransactionsController < Api::V1::BaseController
+  skip_before_action :verify_authenticity_token
   before_action :set_transaction, only: [:show, :update, :destroy]
   before_action :set_account
   before_action :update_user_balance, only: [:create]
